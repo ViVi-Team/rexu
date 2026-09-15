@@ -1,0 +1,40 @@
+### model
+model_name_or_path: Qwen/Qwen1.5-MoE-A2.7B
+expert_training_mode: 804
+chosen_gating_loss: 1.0
+
+### method
+stage: ga_expert
+do_train: true
+
+finetuning_type: full
+deepspeed: examples/deepspeed/ds_z3_config.json
+
+### dataset
+dataset: wmdp_cyber_forget
+template: qwen
+cutoff_len: 1024
+overwrite_cache: true
+preprocessing_num_workers: 16
+packing: true
+### output
+output_dir: saves/deepseek_moe/Qwen/GA_gating_1experts
+logging_steps: 10
+
+plot_loss: true
+overwrite_output_dir: true
+save_only_model: true
+save_steps: 10
+
+### train
+per_device_train_batch_size: 32
+gradient_accumulation_steps: 4
+learning_rate: 2.0e-4
+num_train_epochs: 10.0
+lr_scheduler_type: constant
+warmup_ratio: 0.1
+bf16: true
+ddp_timeout: 180000000
+
+### eval
+val_size: 0

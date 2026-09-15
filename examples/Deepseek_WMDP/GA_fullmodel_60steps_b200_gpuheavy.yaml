@@ -1,0 +1,39 @@
+### model
+model_name_or_path: deepseek-ai/DeepSeek-V2-Lite
+expert_training_mode: 0
+
+### method
+stage: ga
+do_train: true
+finetuning_type: full
+deepspeed: examples/deepspeed/ds_z2_offload_config.json
+
+### dataset
+dataset: wmdp_cyber_forget
+template: deepseek
+cutoff_len: 1024
+overwrite_cache: true
+preprocessing_num_workers: 16
+packing: true
+
+### output
+output_dir: saves/deepseek_moe/WMDP/GA_fullmodel_60step_b200_gpuheavy
+logging_steps: 5
+plot_loss: true
+overwrite_output_dir: true
+save_only_model: true
+save_steps: 10
+
+### train
+per_device_train_batch_size: 8
+gradient_accumulation_steps: 2
+learning_rate: 2.0e-5
+max_steps: 60
+num_train_epochs: 10.0
+lr_scheduler_type: constant
+warmup_ratio: 0.1
+bf16: true
+ddp_timeout: 180000000
+
+### eval
+val_size: 0
